@@ -6,22 +6,23 @@ import android.util.AttributeSet
 import android.view.View
 import com.example.customview.R
 import com.example.customview.utils.dp
-import kotlin.math.sqrt
 
 class CameraView(context: Context, attr: AttributeSet) : View(context, attr) {
 
     companion object {
-        private val IMAGE_SIZE = 200.dp
-        private val IMAGE_PADDING = 100.dp
+        private val BITMAP_SIZE = 200.dp
+        private val BITMAP_PADDING = 100.dp
     }
 
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    private val mBitmap = getImage(IMAGE_SIZE.toInt())
+    private val mBitmap = getImage(BITMAP_SIZE.toInt())
 
-    private val mCamera = Camera().apply {
-        rotateX(30f)
-        translate(0f ,0f, -6 * resources.displayMetrics.density)
+    private val mCamera = Camera()
+    
+    init {
+        mCamera.rotateX(30f)
+        mCamera.setLocation(0f,0f,-6*resources.displayMetrics.density)
     }
 
 
@@ -35,24 +36,24 @@ class CameraView(context: Context, attr: AttributeSet) : View(context, attr) {
 //        super.onDraw(canvas)
         //上半部分不围绕X轴翻起
         canvas.save()
-        canvas.translate((IMAGE_PADDING + IMAGE_SIZE / 2), (IMAGE_PADDING + IMAGE_SIZE / 2))
+        canvas.translate((BITMAP_PADDING + BITMAP_SIZE / 2), (BITMAP_PADDING + BITMAP_SIZE / 2))
         canvas.rotate(-30f)
-        canvas.clipRect(-IMAGE_SIZE, -IMAGE_SIZE, IMAGE_SIZE , 0f)
+        canvas.clipRect(-BITMAP_SIZE, -BITMAP_SIZE, BITMAP_SIZE , 0f)
         canvas.rotate(30f)
-        canvas.translate(-(IMAGE_PADDING + IMAGE_SIZE / 2), -(IMAGE_PADDING + IMAGE_SIZE / 2))
-        canvas.drawBitmap(mBitmap, IMAGE_PADDING, IMAGE_PADDING, mPaint)
+        canvas.translate(-(BITMAP_PADDING + BITMAP_SIZE / 2), -(BITMAP_PADDING + BITMAP_SIZE / 2))
+        canvas.drawBitmap(mBitmap, BITMAP_PADDING, BITMAP_PADDING, mPaint)
         canvas.restore()
 
         //下半部分围绕X轴翻转
         canvas.save()
-        canvas.translate((IMAGE_PADDING + IMAGE_SIZE / 2), (IMAGE_PADDING + IMAGE_SIZE / 2))
+        canvas.translate((BITMAP_PADDING + BITMAP_SIZE / 2), (BITMAP_PADDING + BITMAP_SIZE / 2))
         canvas.rotate(-30f)
         mCamera.applyToCanvas(canvas)
-        canvas.clipRect(-IMAGE_SIZE, 0f, IMAGE_SIZE,
-            IMAGE_SIZE )
+        canvas.clipRect(-BITMAP_SIZE, 0f, BITMAP_SIZE,
+            BITMAP_SIZE )
         canvas.rotate(30f)
-        canvas.translate(-(IMAGE_PADDING + IMAGE_SIZE / 2), -(IMAGE_PADDING + IMAGE_SIZE / 2))
-        canvas.drawBitmap(mBitmap, IMAGE_PADDING, IMAGE_PADDING, mPaint)
+        canvas.translate(-(BITMAP_PADDING + BITMAP_SIZE / 2), -(BITMAP_PADDING + BITMAP_SIZE / 2))
+        canvas.drawBitmap(mBitmap, BITMAP_PADDING, BITMAP_PADDING, mPaint)
         canvas.restore()
     }
 
