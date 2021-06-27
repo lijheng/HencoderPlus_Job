@@ -11,10 +11,10 @@ class ViewFragment : Fragment() {
     companion object {
         private const val PARAM = "fragment_layout_resource"
 
-        fun newInstance(layoutRes:Int):Fragment{
+        fun newInstance(layoutRes: Int): Fragment {
             val fragment = ViewFragment()
             val bundle = Bundle()
-            bundle.putInt(PARAM,layoutRes)
+            bundle.putInt(PARAM, layoutRes)
             fragment.arguments = bundle
             return fragment
         }
@@ -25,8 +25,8 @@ class ViewFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (arguments?.getInt(PARAM,-1) != -1) {
-            return inflater.inflate(arguments?.getInt(PARAM)!!,container,false)
+        if (arguments?.getInt(PARAM, -1) != -1) {
+            return inflater.inflate(arguments?.getInt(PARAM)!!, container, false)
         } else {
             return null
         }
