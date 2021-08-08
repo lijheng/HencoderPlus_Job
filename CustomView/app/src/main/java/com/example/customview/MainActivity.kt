@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.customview.anim.AnimFragment
+import com.example.customview.fragment.FragmentFactory
 import com.example.customview.fragment.ViewFragment
 import com.google.android.material.tabs.TabLayout
 
@@ -26,12 +27,10 @@ class MainActivity : AppCompatActivity() {
             BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         ) {
             override fun getItem(position: Int): Fragment {
-//                return ViewFragment.newInstance(Constant.VIEW_LAYOUT_RES[position])
-                return AnimFragment.newInstance(position)
+                return FragmentFactory.createFragment(position)
             }
 
             override fun getCount(): Int {
-//                return Constant.VIEW_LAYOUT_RES.count()
                 return Constant.ANIMATE_TITLES.count()
             }
 
